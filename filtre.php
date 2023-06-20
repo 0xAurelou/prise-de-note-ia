@@ -1,39 +1,42 @@
 <?php
-include 'config.php';
+include 'config.php'; // Inclusion du fichier de configuration contenant les informations de connexion à la base de données
 
-$bdd = connect();
+$bdd = connect(); // Connexion à la base de données en utilisant la fonction connect()
 
-$langues = $_POST['langue'] ?? [];
-$integrations = $_POST['integration'] ?? [];
-$note_qualite_retranscription = $_POST['note_qualite_retranscription'] ?? '';
-$note_qualite_resume = $_POST['note_qualite_resume'] ?? '';
-$note_fonctionnalite_additionnelle = $_POST['note_fonctionnalite_additionnelle'] ?? '';
-$note_rapport_upload_prix = $_POST['note_rapport_upload_prix'] ?? '';
+$langues = $_POST['langue'] ?? []; // Récupération des langues sélectionnées dans un tableau, ou un tableau vide si aucune langue n'est sélectionnée
+$integrations = $_POST['integration'] ?? []; // Récupération des intégrations sélectionnées dans un tableau, ou un tableau vide si aucune intégration n'est sélectionnée
+$note_qualite_retranscription = $_POST['note_qualite_retranscription'] ?? ''; // Récupération de la note de qualité de retranscription, ou une chaîne vide si aucune note n'est spécifiée
+$note_qualite_resume = $_POST['note_qualite_resume'] ?? ''; // Récupération de la note de qualité de résumé, ou une chaîne vide si aucune note n'est spécifiée
+$note_fonctionnalite_additionnelle = $_POST['note_fonctionnalite_additionnelle'] ?? ''; // Récupération de la note de fonctionnalités additionnelles, ou une chaîne vide si aucune note n'est spécifiée
+$note_rapport_upload_prix = $_POST['note_rapport_upload_prix'] ?? ''; // Récupération de la note de rapport upload/prix, ou une chaîne vide si aucune note n'est spécifiée
 
-$sql = "SELECT * FROM `logiciels` WHERE 1=1";
+$sql = "SELECT * FROM `logiciels` WHERE 1=1"; // Requête SQL de base pour sélectionner toutes les lignes de la table "logiciels"
 
+// Construction de la clause WHERE de la requête en ajoutant des conditions en fonction des langues sélectionnées
 if (!empty($langues)) {
-  $sql .= " AND (";
+  $sql .= " AND ("; // Ouverture de la parenthèse pour séparer cette clause
   foreach ($langues as $langue) {
-    $sql .= " `langues` LIKE '%" . $langue . "%'";
+    $sql .= " `langues` LIKE '%" . $langue . "%'"; // Condition de recherche pour chaque langue
     if ($langue !== end($langues)) {
-      $sql .= " AND";
+      $sql .= " AND"; // Ajout de l'opérateur AND entre les langues
     }
   }
-  $sql .= ")";
+  $sql .= ")"; // Fermeture de la parenthèse
 }
 
+// Construction de la clause WHERE de la requête en ajoutant des conditions en fonction des intégrations sélectionnées
 if (!empty($integrations)) {
-  $sql .= " AND (";
+  $sql .= " AND ("; // Ouverture de la parenthèse pour séparer cette clause
   foreach ($integrations as $integration) {
-    $sql .= " `integrations` LIKE '%$integration%'";
+    $sql .= " `integrations` LIKE '%$integration%'"; // Condition de recherche pour chaque intégration
     if ($integration !== end($integrations)) {
-      $sql .= " AND";
+      $sql .= " AND"; // Ajout de l'opérateur AND entre les intégrations
     }
   }
-  $sql .= ")";
+  $sql .= ")"; // Fermeture de la parenthèse
 }
 
+// Ajout des conditions pour les notes minimales, si elles sont spécifiées
 if (!empty($note_qualite_retranscription)) {
   $sql .= " AND `note_qualite_retranscription` >= :note_qualite_retranscription";
 }
@@ -50,8 +53,9 @@ if (!empty($note_rapport_upload_prix)) {
   $sql .= " AND `note_rapport_upload_prix` >= :note_rapport_upload_prix";
 }
 
-$stmt = $bdd->prepare($sql);
+$stmt = $bdd->prepare($sql); // Préparation de la requête SQL en utilisant PDO
 
+// Liaison des valeurs des variables liées aux paramètres de la requête, si elles ne sont pas vides
 if (!empty($note_qualite_retranscription)) {
   $stmt->bindValue(':note_qualite_retranscription', $note_qualite_retranscription, PDO::PARAM_INT);
 }
@@ -68,9 +72,10 @@ if (!empty($note_rapport_upload_prix)) {
   $stmt->bindValue(':note_rapport_upload_prix', $note_rapport_upload_prix, PDO::PARAM_INT);
 }
 
-$stmt->execute();
-$resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt->execute(); // Exécution de la requête préparée
+$resultats = $stmt->fetchAll(PDO::FETCH_ASSOC); // Récupération des résultats de la requête dans un tableau associatif
 
+// Boucle foreach pour parcourir les résultats et afficher les informations correspondantes
 foreach ($resultats as $resultat) {
   echo '<div class="groupe">';
   echo '<img class="img" src="./img/' . $resultat['nom_logiciel'] . '.png">';
@@ -83,6 +88,7 @@ foreach ($resultats as $resultat) {
   foreach ($langues as $langue) {
     $langue = trim($langue);
     $couleur = '';
+    // Attribution des couleurs en fonction de la langue
     if ($langue == 'Allemand') {
       $couleur = '#e8deee';
     } elseif ($langue == 'Neerlandais') {
@@ -108,6 +114,7 @@ foreach ($resultats as $resultat) {
   foreach ($integrations as $integration) {
     $integration = trim($integration);
     $couleur = '';
+    // Attribution des couleurs en fonction de l'intégration
     if ($integration == 'Slack') {
       $couleur = '#fdecc8'; 
     } elseif ($integration == 'Notion') {
@@ -133,3 +140,4 @@ foreach ($resultats as $resultat) {
   echo '</div>';
 }
 ?>
+
