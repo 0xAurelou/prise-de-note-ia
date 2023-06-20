@@ -1,0 +1,253 @@
+*{
+  font-family: 'Roboto', sans-serif;
+}
+
+
+:root {
+    --primary-color: #353535;
+    --secondary-color: #1845ad;
+    --last-color: #FFFFFF;
+    --button-color:#6e85d2;
+    --font-family: 'Roboto';
+  }
+
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--last-color);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--last-color);
+}
+
+  
+  body {
+    background-color: var(--primary-color);
+    display: flex;
+  }
+  
+  
+  h1 {
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 35px;
+    text-decoration: underline;
+    text-decoration-color: var(--secondary-color);
+  }
+  
+  p {
+    text-align: left;
+    color: var(--button-color);
+    font-size: 15px;
+  }
+  
+  .filter-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .filter-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .filtre {
+    flex: 1;
+    margin-top: -20px;
+    align-items: center !important;
+  }
+  
+  .filter-row .filtre:last-child {
+    margin-left: 10px;
+  }
+  
+  #reset-filters {
+    margin-top: 100px;
+    text-align: center;
+    width: 100%;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px;
+    padding-bottom: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-container {
+    display: flex;
+  }
+  
+  .left-side {
+    background-color: #f0f0f0;
+    width: 500px;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+  .right-side {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  #filtered-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .groupe {
+    border-radius: 20px;
+    margin-bottom: 20px;
+    height: 350px; 
+    margin-top: 50px;
+    margin-left: 20px;
+    background-color: var(--last-color);
+    padding: 10px;
+    width: 550px;
+  }
+  
+
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color:var(--secondary-color) !important;
+    color: var(--last-color);
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px;
+  }
+
+  .select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    min-height: 110px !important;
+    width: 220px !important;
+    cursor: text;
+  }
+
+
+label{
+  font-size: 20px;
+  width: 220px;
+  display: block;
+  margin-top: 30px;
+  text-align: center;
+  font-weight: 500;
+
+}
+
+
+.bouton {
+  text-align: center;
+  margin-top: 5px;
+  width: 50%;
+  background-color: var(--button-color);
+  color: white;
+  padding: 10px;
+  padding-bottom: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+select { 
+  text-align: center;
+  padding: 5px;
+  width: 220px;
+  font-size: 16px;
+  border: 1px solid #000000; 
+  border-radius: 4px; 
+  background-color: rgba(0,106,195,0.07);
+}
+
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+
+
+
+.img_resultat{
+  display: block;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.bas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.texte_gauche{
+  width: 52%;
+  margin-top: -20px;
+}
+.texte_droite{
+  flex:1;
+}
+.texte_gauche p,
+.texte_droite p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.langue-item {
+  display: inline-block;
+  background-color: #e8deee;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+.integration-item {
+  display: inline-block;
+  background-color: #e8deee;
+  color: black;
+  padding: 5px;
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
